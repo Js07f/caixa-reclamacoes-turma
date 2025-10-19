@@ -1,102 +1,105 @@
-// ======== LOGIN SIMPLES ========
+// 🌐 URL do backend hospedado no Render
+const API_BASE = "https://caixa-reclamacoes-turma.onrender.com";
+
+// Senha de acesso ao painel
 const senhaCorreta = "vice2025";
 
-document.getElementById("entrar").addEventListener("click", () => {
-  const senha = document.getElementById("senha").value.trim();
-  const erro = document.getElementById("erro");
+// Elementos principais
+const loginContainer = document.getElementById("login-container");
+const painel = document.getElementById("painel");
+const inputSenha = document.getElementById("senha");
+const btnEntrar = document.getElementById("entrar");
+const erro = document.getElementById("erro");
 
-  if (senha === senhaCorreta) {
-    document.getElementById("login-container").style.display = "none";
-    document.getElementById("painel").style.display = "block";
+// 🔐 Login
+btnEntrar.addEventListener("click", () => {
+  if (inputSenha.value === senhaCorreta) {
+    loginContainer.style.display = "none";
+    painel.style.display = "block";
     carregarMensagens();
-    aplicarTemaSalvo();
   } else {
-    erro.textContent = "Senha incorreta. Tente novamente.";
+    erro.textContent = "Senha incorreta!";
   }
 });
 
-// ======== FUNÇÕES DO PAINEL ========
-
+// 📋 Carregar mensagens
 async function carregarMensagens() {
+  const tabela = document.querySelector("#tabela tbody");
+  tabela.innerHTML = "<tr><td colspan='3'>⏳ Carregando...</td></tr>";
+
   try {
-    const resp = await fetch("/admin-data");
+    const resp = await fetch(`${API_BASE}/admin-data`);
     if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
     const dados = await resp.json();
-    renderizarTabela(dados);
-    configurarBusca(dados);
-    configurarDownload(dados);
-  } catch (err) {
-    console.error("❌ Erro ao carregar mensagens:", err);
-    document.getElementById("painel").innerHTML =
-      `<h2 style="color:red;text-align:center">Erro ao carregar dados: ${err.message}</h2>`;
-  }
-}
 
-function renderizarTabela(mensagens) {
-  const tbody = document.querySelector("#tabela tbody");
-  tbody.innerHTML = "";
-
-  if (!mensagens.length) {
-    tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Nenhuma mensagem ainda.</td></tr>`;
-    return;
-  }
-
-  [...mensagens].reverse().forEach((m, i) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${m.data}</td>
-      <td>${m.mensagem}</td>
-      <td><button class="delete-btn" data-index="${mensagens.length - 1 - i}">🗑️ Excluir</button></td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  document.querySelectorAll(".delete-btn").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const index = btn.getAttribute("data-index");
-      if (!confirm("Tem certeza que deseja excluir esta mensagem?")) return;
-
-      const resp = await fetch(`/admin-delete/${index}`, { method: "DELETE" });
-      if (resp.ok) {
-        alert("Mensagem excluída com sucesso!");
-        carregarMensagens();
-      } else {
-        alert("Erro ao excluir a mensagem.");
-      }
+    tabela.innerHTML = "";
+    dados.reverse().forEach((msg, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${msg.data}</td>
+        <td>${msg.mensagem}</td>
+        <td><button onclick="excluirMensagem(${dados.length - 1 - index})">🗑️ Excluir</button></td>
+      `;
+      tabela.appendChild(tr);
     });
-  });
+
+    if (dados.length === 0) {
+      tabela.innerHTML = "<tr><td colspan='3'>Nenhuma reclamação ainda 👀</td></tr>";
+    }
+  } catch (err) {
+    tabela.innerHTML = `<tr><td colspan='3' style="color:red">❌ Erro ao carregar dados: ${err.message}</td></tr>`;
+  }
 }
 
-function configurarBusca(mensagens) {
-  const input = document.getElementById("busca");
-  input.addEventListener("input", (e) => {
-    const texto = e.target.value.toLowerCase();
-    const filtradas = mensagens.filter((m) =>
-      m.mensagem.toLowerCase().includes(texto)
-    );
-    renderizarTabela(filtradas);
-  });
+// 🗑️ Excluir mensagem
+async function excluirMensagem(index) {
+  if (!confirm("Tem certeza que quer excluir essa mensagem?")) return;
+
+  try {
+    const resp = await fetch(`${API_BASE}/admin-delete/${index}`, { method: "DELETE" });
+    const data = await resp.json();
+
+    if (data.ok) {
+      alert("Mensagem excluída!");
+      carregarMensagens();
+    } else {
+      alert("Erro ao excluir: " + (data.erro || "Desconhecido"));
+    }
+  } catch {
+    alert("Falha na conexão ao excluir mensagem.");
+  }
 }
 
-function configurarDownload(mensagens) {
-  document.getElementById("baixar").addEventListener("click", () => {
-    const csv = mensagens
-      .map(
-        (m) => `"${m.data}","${m.mensagem.replace(/"/g, '""')}"`
-      )
-      .join("\n");
-    const blob = new Blob([`Data,Mensagem\n${csv}`], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "reclamacoes.csv";
-    a.click();
+// 🔎 Busca em tempo real
+document.getElementById("busca").addEventListener("input", (e) => {
+  const termo = e.target.value.toLowerCase();
+  document.querySelectorAll("#tabela tbody tr").forEach((tr) => {
+    const texto = tr.innerText.toLowerCase();
+    tr.style.display = texto.includes(termo) ? "" : "none";
   });
-}
+});
 
-// ======== TEMA ESCURO/CLARO ========
+// ⬇️ Baixar CSV
+document.getElementById("baixar").addEventListener("click", async () => {
+  try {
+    const resp = await fetch(`${API_BASE}/admin-data`);
+    const dados = await resp.json();
+    const csv =
+      "Data,Mensagem\n" +
+      dados.map((d) => `"${d.data}","${d.mensagem.replace(/"/g, "'")}"`).join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "reclamacoes.csv";
+    link.click();
+  } catch {
+    alert("Erro ao baixar CSV");
+  }
+});
+
+// 🌙 Tema escuro/claro
 const btnTema = document.getElementById("toggle-tema");
-
 function aplicarTemaSalvo() {
   const tema = localStorage.getItem("tema") || "claro";
   if (tema === "escuro") {
@@ -104,10 +107,10 @@ function aplicarTemaSalvo() {
     btnTema.textContent = "☀️ Modo Claro";
   }
 }
-
 btnTema.addEventListener("click", () => {
   document.body.classList.toggle("dark");
-  const modoEscuro = document.body.classList.contains("dark");
-  localStorage.setItem("tema", modoEscuro ? "escuro" : "claro");
-  btnTema.textContent = modoEscuro ? "☀️ Modo Claro" : "🌙 Modo Escuro";
+  const escuro = document.body.classList.contains("dark");
+  localStorage.setItem("tema", escuro ? "escuro" : "claro");
+  btnTema.textContent = escuro ? "☀️ Modo Claro" : "🌙 Modo Escuro";
 });
+aplicarTemaSalvo();

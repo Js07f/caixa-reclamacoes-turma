@@ -7,7 +7,7 @@ form.addEventListener('submit', async (e) => {
   if (!mensagem) return alert('Digite algo.');
 
   try {
-    const resp = await fetch('/enviar', {
+    const resp = await fetch('https://caixa-reclamacoes-turma.onrender.com/enviar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ mensagem }),
@@ -21,6 +21,6 @@ form.addEventListener('submit', async (e) => {
       alert('Erro: ' + (data.erro || 'não foi possível enviar'));
     }
   } catch (err) {
-    alert('Falha de rede ao enviar');
+    alert('Falha de rede ao enviar 😕');
   }
 });

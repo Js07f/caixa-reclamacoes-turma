@@ -1,152 +1,143 @@
-/* ===== Paleta ===== */
-:root{
-  --bg: #F3F6F4;
-  --surface:#FFFFFF;
-  --text:#1F2B27;
-  --primary-700:#244B3B;
-  --primary-600:#2E5E4E;
-  --primary-500:#3B735F;
-  --border:#D7E2DC;
-  --muted:#7E9A91;
-  --danger-500:#e53935;
-}
-body.dark{
-  --bg:#0F1916;
-  --surface:#162520;
-  --text:#E6F3EE;
-  --primary-700:#3A7A66;
-  --primary-600:#3F8B73;
-  --primary-500:#4CA487;
-  --border:#274236;
-  --muted:#9FB9AF;
-  --danger-500:#ff6b6b;
+/* 🌱 Paleta baseada na logo */
+:root {
+  --verde-escuro: #244B3B;
+  --verde-claro: #3CB371;
+  --cinza-claro: #f5f5f5;
+  --cinza-escuro: #1e1e1e;
+  --texto-claro: #fff;
+  --texto-escuro: #222;
 }
 
-/* ===== Base ===== */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto;
-  padding:24px; display:flex; align-items:center; justify-content:center;
+/* 🌞 Tema Claro (padrão) */
+body {
+  background-color: var(--cinza-claro);
+  color: var(--texto-escuro);
+  font-family: 'Segoe UI', sans-serif;
+  transition: background 0.3s, color 0.3s;
+  margin: 0;
+  padding: 0;
 }
 
-/* logo fixo canto superior esquerdo */
-.brand-fixed{
-  position: fixed; top:16px; left:16px;
-  display:inline-flex; align-items:center; gap:8px;
-  text-decoration:none; color: var(--text);
-}
-.brand-fixed img{
-  width:44px; height:44px; border-radius:50%; object-fit:cover;
-  box-shadow:0 2px 8px rgba(0,0,0,.15);
-}
-
-/* ===== Login ===== */
-.login-container{
-  width:min(420px,92vw);
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:14px; padding:26px; box-shadow:0 6px 24px rgba(0,0,0,.07);
-  text-align:center;
-}
-#senha{
-  width:100%; padding:10px; margin:12px 0 10px;
-  border:1px solid var(--border); border-radius:10px;
-  background:#fff; color:var(--text); outline:none;
-}
-body.dark #senha{ background:#23372F; border-color:#2a4a3e; }
-#entrar{
-  background:var(--primary-600); color:#fff; border:none; border-radius:10px;
-  padding:10px 16px; cursor:pointer; transition:.2s;
-}
-#entrar:hover{ background:var(--primary-500); }
-
-/* ===== Painel ===== */
-.container{
-  display:none;
-  width:min(1000px, 96vw);
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:14px; padding:24px; box-shadow:0 6px 24px rgba(0,0,0,.07);
-}
-.header-bar{
-  display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;
-}
-#toggle-tema{
-  background:var(--primary-600); color:#fff; border:none; border-radius:10px;
-  padding:8px 14px; cursor:pointer; transition:.2s;
-}
-#toggle-tema:hover{ background:var(--primary-500); }
-
-.top-bar{ display:flex; gap:12px; margin-bottom:14px; }
-#busca{
-  flex:1; padding:8px 12px; border:1px solid var(--border); border-radius:10px;
-  background:#fff; color:var(--text); outline:none;
-}
-body.dark #busca{ background:#23372F; border-color:#2a4a3e; color:#fff; }
-
-#baixar{
-  background:var(--primary-700); color:#fff; border:none; border-radius:10px;
-  padding:8px 14px; cursor:pointer; transition:.2s;
-}
-#baixar:hover{ background:var(--primary-500); }
-
-table{ width:100%; border-collapse:collapse; }
-thead th{
-  background:var(--primary-700); color:#fff; padding:10px; text-align:left;
-}
-td{
-  padding:10px; border-bottom:1px solid var(--border); vertical-align:top;
-}
-body.dark td{ border-color:#2a4a3e; }
-
-/* botão excluir */
-.delete-btn{
-  background:#c62828; color:#fff; border:none; border-radius:8px;
-  padding:6px 10px; cursor:pointer; transition:.2s;
-}
-.delete-btn:hover{ background:#b71c1c; }
-
-/* mostra o painel quando logado (o JS já troca display, mas deixo classe util se quiser usar depois) */
-.show{ display:block !important; }
-
-/* ===== Tema escuro no login ===== */
-body.dark .login-container {
-  background: #1e1e1e;
-  color: #eee;
+.container, .login-container {
+  background-color: #fff;
+  color: var(--texto-escuro);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 40px auto;
 }
 
-body.dark #senha {
-  background: #333;
-  color: #fff;
-  border: 1px solid #555;
+h1 {
+  color: var(--verde-escuro);
+  text-align: center;
 }
 
-body.dark #entrar {
-  background: #1976d2;
-  color: white;
-}
-
-body.dark #entrar:hover {
-  background: #0d47a1;
-}
-
-/* ===== Botão do tema no login ===== */
-.login-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#toggle-tema-login {
-  background: #1976d2;
-  color: white;
+button {
+  background-color: var(--verde-escuro);
+  color: var(--texto-claro);
   border: none;
   padding: 8px 14px;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s;
 }
 
-#toggle-tema-login:hover {
-  background: #0d47a1;
+button:hover {
+  background-color: var(--verde-claro);
+}
+
+/* 🌙 Tema Escuro */
+body.dark {
+  background-color: var(--cinza-escuro);
+  color: var(--texto-claro);
+}
+
+body.dark .container,
+body.dark .login-container {
+  background-color: #222;
+  color: var(--texto-claro);
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+}
+
+body.dark table {
+  background-color: #1a1a1a;
+  color: var(--texto-claro);
+}
+
+body.dark input,
+body.dark textarea {
+  background-color: #333;
+  color: var(--texto-claro);
+  border: 1px solid #444;
+}
+
+body.dark button {
+  background-color: var(--verde-claro);
+  color: #fff;
+}
+
+body.dark button:hover {
+  background-color: var(--verde-escuro);
+}
+
+/* 🧾 Tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--verde-escuro);
+  color: white;
+}
+
+body.dark th {
+  background-color: var(--verde-claro);
+}
+
+/* 🔍 Campo de busca */
+input[type="text"], input[type="password"], textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* 🌙 Botão de tema fixo */
+#toggle-tema {
+  float: right;
+  background-color: transparent;
+  color: inherit;
+  border: 2px solid var(--verde-claro);
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#toggle-tema:hover {
+  background-color: var(--verde-claro);
+  color: #fff;
+}
+
+/* 📎 Logo fixa */
+.brand-fixed {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+.brand-fixed img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
