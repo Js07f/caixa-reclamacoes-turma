@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Reclamações</title>
+
+  <!-- 🔹 Favicon e ícones -->
+  <link rel="icon" type="image/jpeg" href="/img/favicon.jpg" />
+  <link rel="apple-touch-icon" href="/img/favicon.jpg" />
+  <meta name="theme-color" content="#244B3B" />
+
+  <!-- 🔹 CSS -->
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <!-- 🔹 Logo fixo -->
+  <a class="brand-fixed" href="/" title="Início">
+    <img src="/img/logo.jpg" alt="2º Téc de Enfermagem" />
+  </a>
+
+  <!-- 🔒 Login -->
+  <div class="login-container" id="login-container">
+    <div class="login-header">
+      <h1>🔒 Login do Painel</h1>
+      <button id="toggle-tema-login">🌙 Modo Escuro</button>
+    </div>
+    <input type="password" id="senha" placeholder="Digite a senha..." />
+    <button id="entrar">Entrar</button>
+    <p id="erro" style="color:var(--danger-500);"></p>
+  </div>
+
+  <!-- 📋 Painel -->
+  <div class="container" id="painel" style="display:none;">
+    <div class="header-bar">
+      <h1>📋 Painel de Reclamações</h1>
+      <button id="toggle-tema">🌙 Modo Escuro</button>
+    </div>
+
+    <div class="top-bar">
+      <input type="text" id="busca" placeholder="🔍 Buscar mensagem..." />
+      <button id="baixar">⬇️ Baixar CSV</button>
+    </div>
+
+    <table id="tabela">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Mensagem</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="admin.js"></script>
+  <script>
+    // 🔹 Controle de tema (login + painel)
+    const btnTemaLogin = document.getElementById("toggle-tema-login");
+    const btnTemaPainel = document.getElementById("toggle-tema");
+
+    function aplicarTemaSalvo() {
+      const tema = localStorage.getItem("tema") || "claro";
+      if (tema === "escuro") {
+        document.body.classList.add("dark");
+        if (btnTemaLogin) btnTemaLogin.textContent = "☀️ Modo Claro";
+        if (btnTemaPainel) btnTemaPainel.textContent = "☀️ Modo Claro";
+      }
+    }
+
+    function alternarTema(botao) {
+      document.body.classList.toggle("dark");
+      const escuro = document.body.classList.contains("dark");
+      localStorage.setItem("tema", escuro ? "escuro" : "claro");
+      botao.textContent = escuro ? "☀️ Modo Claro" : "🌙 Modo Escuro";
+      if (btnTemaLogin && botao !== btnTemaLogin)
+        btnTemaLogin.textContent = botao.textContent;
+      if (btnTemaPainel && botao !== btnTemaPainel)
+        btnTemaPainel.textContent = botao.textContent;
+    }
+
+    if (btnTemaLogin)
+      btnTemaLogin.addEventListener("click", () => alternarTema(btnTemaLogin));
+    if (btnTemaPainel)
+      btnTemaPainel.addEventListener("click", () => alternarTema(btnTemaPainel));
+
+    aplicarTemaSalvo();
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* ===== Paleta baseada no selo (verde escuro/verde médio/off-white) ===== */
+:root{
+  --bg: #F3F6F4;          /* off-white do fundo do selo */
+  --surface: #FFFFFF;     /* cartas/superfícies */
+  --text: #1F2B27;        /* texto principal (verde-acinzentado bem escuro) */
+  --primary-700:#244B3B;  /* verde anel externo */
+  --primary-600:#2E5E4E;  /* verde médio do selo */
+  --primary-500:#3B735F;  /* variação para hovers */
+  --border:#D7E2DC;
+  --muted:#7E9A91;
+  --danger-500:#e53935;
+}
+
+body.dark{
+  --bg:#0F1916;
+  --surface:#162520;
+  --text:#E6F3EE;
+  --primary-700:#3A7A66;
+  --primary-600:#3F8B73;
+  --primary-500:#4CA487;
+  --border:#274236;
+  --muted:#9FB9AF;
+  --danger-500:#ff6b6b;
+}
+
+/* ===== Layout base ===== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Poppins",system-ui,-apple-system,Segoe UI,Roboto;
+  background: var(--bg);
+  color: var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 24px;
+}
+
+/* logo fixo no canto */
+.brand-fixed{
+  position: fixed;
+  top:16px; left:16px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color: var(--text);
+}
+.brand-fixed img{
+  width:44px; height:44px; border-radius:50%; object-fit:cover;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.container{
+  width: min(680px, 92vw);
+  background: var(--surface);
+  border:1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.07);
+}
+
+.header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:16px;
+}
+h1{margin:0}
+
+#toggle-tema{
+  background: var(--primary-600);
+  color:#fff; border:none; border-radius:10px;
+  padding:8px 14px; cursor:pointer; transition:.2s;
+}
+#toggle-tema:hover{ background: var(--primary-500); }
+
+textarea{
+  width:100%; min-height:150px; resize:vertical;
+  padding:12px; border-radius:12px; border:1px solid var(--border);
+  background:#fff; color:var(--text); outline:none; font-size:15px;
+}
+body.dark textarea{ background:#23372F; border-color:#2a4a3e; }
+
+button[type="submit"]{
+  margin-top:10px;
+  background: var(--primary-700);
+  color:#fff; border:none; border-radius:12px;
+  padding:10px 16px; cursor:pointer; transition:.2s;
+}
+button[type="submit"]:hover{ background: var(--primary-500); }
+
+#responseMessage{ margin-top:10px; color: var(--muted); }

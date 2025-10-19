@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caixa de Reclamações da Turma</title>
+
+  <!-- 🔹 Favicon e ícones -->
+  <link rel="icon" type="image/jpeg" href="/img/favicon.jpg" />
+  <link rel="apple-touch-icon" href="/img/favicon.jpg" />
+  <meta name="theme-color" content="#244B3B" />
+
+  <!-- 🔹 CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- 🔹 Logo fixo no canto superior esquerdo -->
+  <a class="brand-fixed" href="/" title="Início">
+    <img src="/img/logo.jpg" alt="2º Téc de Enfermagem" />
+  </a>
+
+  <div class="container">
+    <div class="header">
+      <h1>📮 Caixa de Reclamações da Turma</h1>
+      <button id="toggle-tema">🌙 Modo Escuro</button>
+    </div>
+
+    <form id="complaintForm">
+      <textarea
+        id="complaintMessage"
+        placeholder="Digite sua reclamação aqui..."
+        required
+      ></textarea>
+      <button type="submit">Enviar Reclamação</button>
+    </form>
+
+    <div id="responseMessage"></div>
+  </div>
+
+  <!-- 🔹 Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    // Tema dark/light com salvamento no navegador
+    const btnTema = document.getElementById("toggle-tema");
+
+    function aplicarTemaSalvo() {
+      const tema = localStorage.getItem("tema") || "claro";
+      if (tema === "escuro") {
+        document.body.classList.add("dark");
+        btnTema.textContent = "☀️ Modo Claro";
+      }
+    }
+
+    btnTema.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const escuro = document.body.classList.contains("dark");
+      localStorage.setItem("tema", escuro ? "escuro" : "claro");
+      btnTema.textContent = escuro ? "☀️ Modo Claro" : "🌙 Modo Escuro";
+    });
+
+    aplicarTemaSalvo();
+  </script>
+</body>
+</html>
