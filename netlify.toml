@@ -1,6 +1,12 @@
 [build]
-  publish = "public"
+  publish = "caixa-de-reclamacoes-da-turma/public"
   command = ""
+
+[[redirects]]
+  from = "/enviar"
+  to = "https://caixa-reclamacoes-turma.onrender.com/enviar"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/admin-data"
