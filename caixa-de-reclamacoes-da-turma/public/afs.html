@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caixa Anônima AFS</title>
+  <link rel="stylesheet" href="./css/styles_afs.css">
+  <script defer src="./js/app_afs.js"></script>
+  <link rel="icon" type="image/jpg" href="./img/favicon_afs.jpg">
+</head>
+
+<body>
+
+  <!-- 🔹 Botões laterais fixos -->
+  <a href="/afs" class="corner-btn left-btn" title="Recarregar">
+    <img src="./img/favicon_afs.jpg" alt="Recarregar">
+  </a>
+
+  <a href="/admin_afs" class="corner-btn right-btn" title="Painel AFS Admin">
+    <img src="./img/favicon_afs.jpg" alt="Admin AFS">
+  </a>
+
+  <!-- 🔹 Conteúdo principal -->
+  <main>
+    <header>
+      <img src="./img/logo_afs.jpg" class="logo" alt="AFSinho Logo">
+      <h1>Caixa Anônima AFS</h1>
+    </header>
+
+    <div class="container">
+      <form id="form">
+        <textarea id="text" placeholder="Escreve aqui o seu desabafo..."></textarea>
+        <button type="submit">Enviar anonimamente 🌱</button>
+      </form>
+
+      <div id="posts"></div>
+    </div>
+  </main>
+
+</body>
+</html>

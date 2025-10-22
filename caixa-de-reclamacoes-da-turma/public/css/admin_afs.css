@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #0d0d0d;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  background: linear-gradient(to right, #228b22, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.container {
+  background: #1a1a1a;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.2);
+  width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.container h2 {
+  color: #ff8c00;
+  margin-bottom: 15px;
+}
+
+.msg {
+  background: #111;
+  border: 1px solid #333;
+  border-left: 4px solid #ff8c00;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.msg:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px #ff8c00;
+}
+
+.msg small {
+  color: #aaa;
+  font-size: 0.8rem;
+  display: block;
+  margin-top: 5px;
+}
+
+.delete-btn {
+  background: linear-gradient(to right, #ff4500, #ff8c00);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  float: right;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(to right, #b30000, #ff6600);
+  transform: scale(1.05);
+}
+
+/* Botão lateral */
+.corner-btn {
+  position: fixed;
+  top: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ff8c00;
+  background: #1a1a1a;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.corner-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.corner-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #ff8c00;
+}
+
+.left-btn {
+  left: 20px;
+}

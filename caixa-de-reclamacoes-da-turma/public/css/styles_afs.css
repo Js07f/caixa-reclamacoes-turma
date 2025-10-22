@@ -1,0 +1,234 @@
+:root {
+  --green: #2E7D32;
+  --orange: #F57C00;
+  --bg: #1B1B1B;
+  --card-bg: #2A2A2A;
+  --text: #FAFAFA;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(90deg, var(--green), var(--orange));
+  color: white;
+  padding: 10px 16px;
+  border-radius: 16px 16px 0 0;
+  font-weight: 700;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  object-fit: cover;
+  padding: 4px;
+}
+
+main {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  padding-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.95);}
+  to {opacity: 1; transform: scale(1);}
+}
+
+.container {
+  padding: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 140px;
+  background: #1E1E1E;
+  color: var(--text);
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 1rem;
+  resize: none;
+  transition: 0.3s;
+}
+
+textarea:focus {
+  border-color: var(--orange);
+  outline: none;
+}
+
+button {
+  background-color: var(--orange);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: var(--green);
+}
+
+.post {
+  background: #222;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 12px;
+  border-left: 4px solid var(--green);
+}
+
+.post small {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+/* Botões laterais flutuantes */
+.corner-btn {
+  position: fixed;
+  top: 20px;
+  z-index: 10;
+  transition: 0.3s;
+}
+
+.corner-btn img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+}
+
+.corner-btn.left-btn {
+  left: 25px;
+}
+
+.corner-btn.right-btn {
+  right: 25px;
+}
+
+.corner-btn:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Botões laterais flutuantes */
+.corner-btn {
+  position: fixed;
+  top: 20px;
+  z-index: 10;
+  transition: 0.3s;
+}
+
+.corner-btn img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+}
+
+.corner-btn.left-btn {
+  left: 25px;
+}
+
+.corner-btn.right-btn {
+  right: 25px;
+}
+
+.corner-btn:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Painel admin AFS */
+h2 {
+  color: var(--orange);
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.admin-post {
+  position: relative;
+}
+
+.del-btn {
+  background-color: #c62828;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.del-btn:hover {
+  background-color: #e53935;
+  transform: scale(1.05);
+}
+
+.popup-msg {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: linear-gradient(90deg, #3cb371, #ff8c00);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.4s ease;
+  z-index: 9999;
+}
+
+.popup-msg.mostrar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.popup-msg.erro {
+  background: linear-gradient(90deg, #ff4040, #ff8c00);
+}
