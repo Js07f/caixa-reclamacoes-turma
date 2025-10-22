@@ -232,3 +232,29 @@ h2 {
 .popup-msg.erro {
   background: linear-gradient(90deg, #ff4040, #ff8c00);
 }
+
+/* 🌟 Popup de notificação */
+.popup-msg {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+.popup-msg.erro {
+  background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+.popup-msg.mostrar {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
