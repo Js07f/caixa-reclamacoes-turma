@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function carregarMensagens() {
     try {
-      const res = await fetch("http://localhost:3001/admin-data");
+      // 🔹 Usa rota relativa (funciona local e no Render)
+      const res = await fetch("/admin-data-afs");
       const dados = await res.json();
 
       if (!dados.length) {
@@ -11,24 +12,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      // 🔄 Mostra as mensagens mais recentes primeiro
-      lista.innerHTML = [...dados]
-        .reverse()
+      // Mensagens novas primeiro (ordem invertida)
+      dados.reverse();
+
+      lista.innerHTML = dados
         .map(
           (m, i) => `
           <div class="msg fade-in">
             <p>${m.mensagem}</p>
             <small>${m.data}</small>
-            <button class="delete" data-index="${dados.length - 1 - i}">🗑️</button>
+            <button class="delete" data-index="${i}">🗑️</button>
           </div>`
         )
         .join("");
 
-      // 🗑️ Botões de excluir
       document.querySelectorAll(".delete").forEach((btn) => {
         btn.addEventListener("click", async () => {
           if (confirm("Excluir esta mensagem?")) {
-            await fetch(`http://localhost:3001/admin-delete/${btn.dataset.index}`, {
+            await fetch(`/admin-delete-afs/${btn.dataset.index}`, {
               method: "DELETE",
             });
             carregarMensagens();
