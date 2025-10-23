@@ -7,17 +7,56 @@
   <link rel="stylesheet" href="./css/styles_afs.css">
   <script defer src="./admin_afs.js"></script>
   <link rel="icon" type="image/jpg" href="./img/favicon_afs.jpg">
+
+  <style>
+    /* 🌿 Botão de logout */
+    .logout-btn {
+      background: linear-gradient(90deg, #27ae60, #f39c12);
+      border: none;
+      padding: 8px 15px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-left: 20px;
+    }
+    .logout-btn:hover {
+      opacity: 0.85;
+      transform: scale(1.03);
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+  </style>
 </head>
 
 <body>
-
   <script>
-  if (!localStorage.getItem("afs_admin")) {
-    window.location.href = "/login_afs";
-  }
-</script>
+    // 🔐 Proteção de acesso
+    if (!localStorage.getItem("afs_admin")) {
+      window.location.href = "/login_afs";
+    }
 
-  <!-- 🔹 Botões laterais fixos -->
+    function sair() {
+      localStorage.removeItem("afs_admin");
+      window.location.href = "/login_afs";
+    }
+  </script>
+
+  <!-- 🔹 Botão lateral -->
   <a href="/afs" class="corner-btn left-btn" title="Voltar para o site">
     <img src="./img/favicon_afs.jpg" alt="Voltar">
   </a>
@@ -27,6 +66,7 @@
     <header>
       <img src="./img/logo_afs.jpg" class="logo" alt="AFSinho Logo">
       <h1>Painel Admin AFS</h1>
+      <button class="logout-btn" onclick="sair()">Sair 🚪</button>
     </header>
 
     <div class="container">
@@ -34,6 +74,5 @@
       <div id="mensagens"></div>
     </div>
   </main>
-
 </body>
 </html>
