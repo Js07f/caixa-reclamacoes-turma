@@ -9,6 +9,9 @@ const PORT = process.env.PORT || 3000;
 const ARQUIVO_TURMA = path.join(__dirname, '../reclamacoes.json');
 const ARQUIVO_AFS = path.join(__dirname, '../reclamacoes_afs.json');
 
+// 🔐 Senha do painel AFS (pode mudar depois ou colocar em variável de ambiente no Render)
+const SENHA_ADMIN_AFS = process.env.SENHA_ADMIN_AFS || 'afs123';
+
 // Garante que ambos existam
 if (!fs.existsSync(ARQUIVO_TURMA)) fs.writeFileSync(ARQUIVO_TURMA, '[]');
 if (!fs.existsSync(ARQUIVO_AFS)) fs.writeFileSync(ARQUIVO_AFS, '[]');
@@ -43,9 +46,19 @@ app.delete('/admin-delete/:index', (req, res) => excluirMensagem(req, res, ARQUI
 // 🗑️ Deletar mensagem AFS
 app.delete('/admin-delete-afs/:index', (req, res) => excluirMensagem(req, res, ARQUIVO_AFS));
 
+// 🔐 Login admin AFS
+app.post('/login_afs', (req, res) => {
+  const { senha } = req.body;
+  if (senha === SENHA_ADMIN_AFS) {
+    return res.json({ ok: true });
+  }
+  res.status(401).json({ ok: false, erro: 'Senha incorreta' });
+});
+
 // 📄 Páginas HTML
 app.get('/afs', (_, res) => res.sendFile(path.join(__dirname, '../public/afs.html')));
 app.get('/admin_afs', (_, res) => res.sendFile(path.join(__dirname, '../public/admin_afs.html')));
+app.get('/login_afs', (_, res) => res.sendFile(path.join(__dirname, '../public/login_afs.html')));
 app.get('/admin', (_, res) => res.sendFile(path.join(__dirname, '../public/admin.html')));
 
 // --- Funções utilitárias ---
@@ -101,4 +114,5 @@ app.listen(PORT, () => {
   console.log(`🚀 Server ativo em http://localhost:${PORT}`);
   console.log(`📮 Caixa Turma: / e /admin`);
   console.log(`🌱 Caixa AFS: /afs e /admin_afs`);
+  console.log(`🔐 Login AFS: /login_afs`);
 });

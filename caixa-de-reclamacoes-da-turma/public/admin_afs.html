@@ -11,6 +11,12 @@
 
 <body>
 
+  <script>
+  if (!localStorage.getItem("afs_admin")) {
+    window.location.href = "/login_afs";
+  }
+</script>
+
   <!-- 🔹 Botões laterais fixos -->
   <a href="/afs" class="corner-btn left-btn" title="Voltar para o site">
     <img src="./img/favicon_afs.jpg" alt="Voltar">
